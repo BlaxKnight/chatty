@@ -21,13 +21,15 @@ class MessageController extends Controller
     public function byUser(User $user)
     {
         //$senderId = Auth::id();
-        $messages = Message::where('sender_id', auth()->id())
-            ->where('receiver_id', $user->id)
-            ->orWhere('sender_id', $user->id)
-            ->where('receiver_id', auth()->id())
-            ->latest()
-            ->paginate(10)
-        ;
+        $messages = Message::where(function ($query) use ($user) {
+            $query->where('sender_id', auth()->id())       // I sent it
+                  ->where('receiver_id', $user->id);       // to the other user
+        })->orWhere(function ($query) use ($user) {
+            $query->where('sender_id', $user->id)          // they sent it
+                  ->where('receiver_id', auth()->id());    // to me
+        })->latest()
+        ->paginate(10);
+
 
         return inertia('Home', [
             'selectedConversation' => $user->toConversationArray(),
