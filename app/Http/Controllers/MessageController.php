@@ -23,12 +23,12 @@ class MessageController extends Controller
         //$senderId = Auth::id();
         $messages = Message::where(function ($query) use ($user) {
             $query->where('sender_id', auth()->id())       // I sent it
-                  ->where('receiver_id', $user->id);       // to the other user
+                ->where('receiver_id', $user->id);       // to the other user
         })->orWhere(function ($query) use ($user) {
             $query->where('sender_id', $user->id)          // they sent it
-                  ->where('receiver_id', auth()->id());    // to me
+                ->where('receiver_id', auth()->id());    // to me
         })->latest()
-        ->paginate(10);
+            ->paginate(10);
 
 
         return inertia('Home', [
@@ -41,8 +41,7 @@ class MessageController extends Controller
     {
         $messages = Message::where('group_id', $group->id)
             ->latest()
-            ->paginate(10)
-        ;
+            ->paginate(10);
 
         return inertia('Home', [
             'selectedConversation' => $group->toConversationArray(),
@@ -56,20 +55,20 @@ class MessageController extends Controller
             $messages = Message::where('created_at', '<', $message->created_at)
                 ->where('group_id', $message->group_id)
                 ->latest()
-                ->paginate(10)
-            ;
+                ->paginate(10);
         } else {
             $messages = Message::where('created_at', '<', $message->created_at)
                 ->where(function ($query) use ($message) {
-                    $query->where('sender_id', $message->sender_id)
-                        ->where('receiver_id', $message->receiver_id)
-                        ->orWhere('sender_id', $message->receiver_id)
-                        ->where('receiver_id', $message->sender_id)
-                    ;
+                    $query->where(function ($q) use ($message) {
+                        $q->where('sender_id', $message->sender_id)
+                            ->where('receiver_id', $message->receiver_id);
+                    })->orWhere(function ($q) use ($message) {
+                        $q->where('sender_id', $message->receiver_id)
+                            ->where('receiver_id', $message->sender_id);
+                    });
                 })
                 ->latest()
-                ->paginate(10)
-            ;
+                ->paginate(10);
         }
 
         return MessageResource::collection($messages);
