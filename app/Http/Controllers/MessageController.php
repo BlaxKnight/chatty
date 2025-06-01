@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Group;
 use App\Models\Message;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
