@@ -1,6 +1,4 @@
 <?php
-// Errors are Not important ( maybe )
-
 namespace App\Http\Controllers;
 
 use App\Events\SocketMessage;
@@ -20,13 +18,12 @@ class MessageController extends Controller
 {
     public function byUser(User $user)
     {
-        //$senderId = Auth::id();
         $messages = Message::where(function ($query) use ($user) {
-            $query->where('sender_id', auth()->id())       // I sent it
-                ->where('receiver_id', $user->id);       // to the other user
+            $query->where('sender_id', auth()->id())
+                ->where('receiver_id', $user->id);
         })->orWhere(function ($query) use ($user) {
-            $query->where('sender_id', $user->id)          // they sent it
-                ->where('receiver_id', auth()->id());    // to me
+            $query->where('sender_id', $user->id)
+                ->where('receiver_id', auth()->id());
         })->latest()
             ->paginate(10);
 
