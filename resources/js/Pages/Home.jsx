@@ -3,14 +3,18 @@ import MessageItem from '@/Components/App/MessageItem';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import ChatLayout from '@/Layouts/ChatLayout';
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/solid';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePage } from "@inertiajs/react";
 import MessageInput from '@/Components/App/MessageInput';
 import { useEventBus } from '@/EventBus';
+import axios from 'axios';
 
 const Home = () => {
     const { selectedConversation = null, messages = null } = usePage().props;
     const [localMessages, setLocalMessages] = useState([]);
+    const [noMoreMessages, setNoMoreMessages] = useState(false);
+    const [scrollFromBottom, setScrollFromBottom] = useState(0);
+    const loadMoreIntersect = useRef(null);
     const messagesCtrRef = useRef(null);
     const { on } = useEventBus();
 
@@ -32,6 +36,32 @@ const Home = () => {
         }
     };
 
+    const loadMoreMessages = useCallback(() => {
+        if (noMoreMessages) {
+            return;
+        }
+        const firstMessage = localMessages[0];
+        axios
+            .get(route("message.loadOlder", firstMessage.id))
+            .then(({ data }) => {
+                if (data.data.length === 0) {
+                    setNoMoreMessages(true);
+                    return;
+                }
+                const scrollHeight = messagesCtrRef.current.scrollHeight;
+                const scrollTop = messagesCtrRef.current.scrollTop;
+                const clientHeight = messagesCtrRef.current.clientHeight;
+                const tmpScrollFromBottom =
+                    scrollHeight - scrollTop - clientHeight;
+                console.log("tmpScrollFromBottom ", tmpScrollFromBottom);
+                setScrollFromBottom(scrollHeight - scrollTop - clientHeight);
+
+                setLocalMessages((prevMessages) => {
+                    return [...data.data.reverse(), ...prevMessages];
+                });
+            });
+    }, [localMessages, noMoreMessages]);
+
     useEffect(() => {
         setTimeout(() => {
             if (messagesCtrRef.current) {
@@ -42,6 +72,9 @@ const Home = () => {
 
         const offCreated = on('message.created', messageCreated);
 
+        setScrollFromBottom(0);
+        setNoMoreMessages(false);
+
         return () => {
             offCreated();
         };
@@ -50,6 +83,39 @@ const Home = () => {
     useEffect(() => {
         setLocalMessages(messages ? messages.data.reverse() : []);
     }, [messages]);
+
+    useEffect(() => {
+        if (messagesCtrRef.current && scrollFromBottom !== null) {
+            messagesCtrRef.current.scrollTop =
+                messagesCtrRef.current.scrollHeight -
+                messagesCtrRef.current.offsetHeight -
+                scrollFromBottom;
+        }
+
+        if (noMoreMessages) {
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            (entries) =>
+                entries.forEach(
+                    (entry) => entry.isIntersecting && loadMoreMessages()
+                ),
+            {
+                rootMargin: "0px 0px 250px 0px"
+            }
+        );
+
+        if (loadMoreIntersect.current) {
+            setTimeout(() => {
+                observer.observe(loadMoreIntersect.current);
+            }, 100);
+        }
+
+        return () => {
+            observer.disconnect();
+        };
+    }, [localMessages]);
 
     return (
         <>
@@ -81,6 +147,7 @@ const Home = () => {
                         )}
                         {localMessages.length > 0 && (
                             <div className='flex-1 flex flex-col'>
+                                <div ref={loadMoreIntersect}></div>
                                 {localMessages.map((message) => (
                                     <MessageItem
                                         key={message.id}
