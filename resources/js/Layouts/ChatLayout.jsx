@@ -9,9 +9,9 @@ const ChatLayout = ({ children }) => {
     const page = usePage();
     const conversations = page.props.conversations;
     const selectedConversation = page.props.selectedConversation;
-    const [ localConversations, setLocalConversations ] = useState([]);
-    const [ sortedConversations, setSortedConversations ] = useState([]);
-    const [ onlineUsers, setOnlineUsers ] = useState({});
+    const [localConversations, setLocalConversations] = useState([]);
+    const [sortedConversations, setSortedConversations] = useState([]);
+    const [onlineUsers, setOnlineUsers] = useState({});
     const { on } = useEventBus();
 
     const isUserOnline = (userId) => onlineUsers[userId];
@@ -23,7 +23,7 @@ const ChatLayout = ({ children }) => {
                 return conversation.name.toLowerCase().includes(search);
             })
         );
-    }
+    };
 
     const messageCreated = (message) => {
         setLocalConversations((oldUsers) => {
@@ -32,7 +32,6 @@ const ChatLayout = ({ children }) => {
                     message.recevier_id &&
                     !u.is_group &&
                     (u.id == message.sender_id || u.id == message.recevier_id)
-
                 ) {
                     u.last_message = message.message;
                     u.last_message_date = message.created_at;
@@ -53,7 +52,7 @@ const ChatLayout = ({ children }) => {
         });
     };
 
-    useEffect(() =>{
+    useEffect(() => {
         const offCreated = on("message.created", messageCreated);
         return () => {
             offCreated();
@@ -90,7 +89,7 @@ const ChatLayout = ({ children }) => {
     }, [conversations]);
 
     useEffect(() => {
-        Echo.join('online')
+        Echo.join("online")
             .here((users) => {
                 const onlineUsersObj = Object.fromEntries(
                     users.map((user) => [user.id, user])
@@ -115,11 +114,11 @@ const ChatLayout = ({ children }) => {
                 });
             })
             .error((error) => {
-                console.error('error', error);
+                console.error("error", error);
             });
 
         return () => {
-            Echo.leave('online');
+            Echo.leave("online");
         };
     }, []);
 
@@ -133,14 +132,11 @@ const ChatLayout = ({ children }) => {
                 >
                     <div className="flex items-center justify-between py-2 px-3 text-xl font-medium text-gray-200">
                         My Conversations
-
                         <div
                             className="tooltip tooltip-left"
                             data-tip="Create new Group"
                         >
-                            <button
-                                className="text-gray-400 hover:text-gray-200"
-                            >
+                            <button className="text-gray-400 hover:text-gray-200">
                                 <PencilSquareIcon className="w-4 n-4 inline-block ml-2" />
                             </button>
                         </div>
@@ -165,8 +161,7 @@ const ChatLayout = ({ children }) => {
                                     online={!!isUserOnline(conversation.id)}
                                     selectedConversation={selectedConversation}
                                 />
-                            ))
-                        }
+                            ))}
                     </div>
                 </div>
 
@@ -174,6 +169,6 @@ const ChatLayout = ({ children }) => {
             </div>
         </>
     );
-}
+};
 
 export default ChatLayout;

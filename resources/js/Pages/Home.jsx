@@ -8,6 +8,7 @@ import { usePage } from "@inertiajs/react";
 import MessageInput from '@/Components/App/MessageInput';
 import { useEventBus } from '@/EventBus';
 import axios from 'axios';
+import AttachmentPreviewModal from '@/Components/App/AttachmentPreviewModal';
 
 const Home = () => {
     const { selectedConversation = null, messages = null } = usePage().props;
@@ -16,6 +17,8 @@ const Home = () => {
     const [scrollFromBottom, setScrollFromBottom] = useState(0);
     const loadMoreIntersect = useRef(null);
     const messagesCtrRef = useRef(null);
+    const [showAttachmentPreview, setShowAttachmentPreview] = useState(false);
+    const [previewAttachment, setPreviewAttachment] = useState({});
     const { on } = useEventBus();
 
     const messageCreated = (message) => {
@@ -61,6 +64,14 @@ const Home = () => {
                 });
             });
     }, [localMessages, noMoreMessages]);
+
+    const onAttachmentClick = (attachments, ind) => {
+        setPreviewAttachment({
+            attachments,
+            ind,
+        });
+        setShowAttachmentPreview(true);
+    };
 
     useEffect(() => {
         setTimeout(() => {
@@ -152,6 +163,7 @@ const Home = () => {
                                     <MessageItem
                                         key={message.id}
                                         message={message}
+                                        attachmentClick={onAttachmentClick}
                                     />
                                 ))}
                             </div>
@@ -159,6 +171,15 @@ const Home = () => {
                     </div>
                     <MessageInput conversation={selectedConversation} />
                 </>
+            )}
+
+            {previewAttachment.attachments && (
+                <AttachmentPreviewModal
+                    attachments={previewAttachment.attachments}
+                    index={previewAttachment.ind}
+                    show={showAttachmentPreview}
+                    onClose={() => setShowAttachmentPreview(false)}
+                />
             )}
         </>
     );
