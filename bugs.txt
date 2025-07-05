@@ -3,4 +3,7 @@
 ? pdf cannot previewable but it should be instead it is acting like a exe or bin or ... files
 ? refreshing the page cause to load pdf or any other downloadable ( non-previewable files ) if happend in a conversation to idm show download ( receiving this even in chatting - loading daisyui loading bar which may be there is a problem inside sending )
 - microphone icon ui problem
-- 
+- toast not working for creating and deleting group
+- after push edit button for groups, it will convert create group button to edit
+- Profile storage GET 404 error
+-

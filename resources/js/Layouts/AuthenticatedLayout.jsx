@@ -1,10 +1,13 @@
 import NewMessageNotification from "@/Components/App/NewMessageNotification";
+import NewUserModal from "@/Components/App/NewUserModal";
 import Toast from "@/Components/App/Toast";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
+import PrimaryButton from "@/Components/PrimaryButton";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { useEventBus } from "@/EventBus";
+import { UserPlusIcon } from "@heroicons/react/24/solid";
 import { Link, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 
@@ -14,6 +17,7 @@ export default function Authenticated({ header, children }) {
   const conversations = page.props.conversations;
   const [showingNavigationDropdown, setShowingNavigationDropdown] =
     useState(false);
+  const [showNewUserModal, setShowNewUserModal] = useState(false);
   const { emit } = useEventBus();
 
   useEffect(() => {
@@ -49,6 +53,17 @@ export default function Authenticated({ header, children }) {
               }`,
           });
         });
+
+      if (conversation.is_group) {
+        Echo.private(`group.deleted.${conversation.id}`)
+          .listen("GroupDeleted", (e) => {
+            console.log("GroupDeleted", e);
+            emit("group.deleted", { id: e.id, name: e.name });
+          })
+          .error((e) => {
+            console.error(e);
+          });
+      }
     });
 
     return () => {
@@ -64,6 +79,10 @@ export default function Authenticated({ header, children }) {
             .join("-")}`;
         }
         Echo.leave(channel);
+
+        if (conversation.is_group) {
+          Echo.leave(`group.deleted.${conversation.id}`);
+        }
       });
     };
   }, [conversations]);
@@ -92,7 +111,14 @@ export default function Authenticated({ header, children }) {
               </div>
 
               <div className="hidden sm:ms-6 sm:flex sm:items-center">
-                <div className="relative ms-3">
+                <div className="flex relative ms-3">
+                  {user.is_admin && (
+                    <PrimaryButton onClick={(ev) => setShowNewUserModal(true)}>
+                      <UserPlusIcon className="h-5 w-5 mr-2" />
+                      Add New User
+                    </PrimaryButton>
+                  )}
+
                   <Dropdown>
                     <Dropdown.Trigger>
                       <span className="inline-flex rounded-md">
@@ -223,7 +249,12 @@ export default function Authenticated({ header, children }) {
 
         {children}
       </div>
+      <Toast />
       <NewMessageNotification />
+      <NewUserModal
+        show={showNewUserModal}
+        onClose={(ev) => setShowNewUserModal(false)}
+      />
     </>
   );
 }
