@@ -48,10 +48,20 @@ const ChatLayout = ({ children }) => {
     });
   };
 
+  const messageDeleted = ({ prevMessage }) => {
+    if (!prevMessage) {
+      return;
+    }
+
+    messageCreated(prevMessage);
+  };
+
   useEffect(() => {
     const offCreated = on("message.created", messageCreated);
+    const offDeleted = on("message.deleted", messageDeleted);
     return () => {
       offCreated();
+      offDeleted();
     };
   }, [on]);
 
