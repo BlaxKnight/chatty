@@ -32,7 +32,7 @@ const ConversationHeader = ({ selectedConversation }) => {
   return (
     <>
       {selectedConversation && (
-        <div className="p-3 flex justify-between items-center border-b border-slate-700">
+        <div className="bg-gray-200 dark:bg-slate-700 p-3 flex justify-between items-center border-b border-gray-300 dark:border-slate-600">
           <div className="flex items-center gap-3">
             <Link href={route("dashboard")} className="inline-block sm:hidden">
               <ArrowLeftIcon className="w-6" />
@@ -41,10 +41,10 @@ const ConversationHeader = ({ selectedConversation }) => {
               <UserAvatar user={selectedConversation} />
             )}
             {selectedConversation.is_group && <GroupAvatar />}
-            <div className="text-slate-100">
-              <h3>{selectedConversation.name}</h3>
+            <div className="text-gray-800 dark:text-gray-100">
+              <h3 className="text-xl">{selectedConversation.name}</h3>
               {selectedConversation.is_group && (
-                <p className="text-xs text-gray-500">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
                   {selectedConversation.users.length} members
                 </p>
               )}
@@ -63,17 +63,17 @@ const ConversationHeader = ({ selectedConversation }) => {
                       onClick={(ev) =>
                         emit("GroupModal.show", selectedConversation)
                       }
-                      className="text-gray-400 hover:text-gray-200"
+                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                     >
-                      <PencilSquareIcon className="w-4" />
+                      <PencilSquareIcon className="w-6" />
                     </button>
                   </div>
                   <div className="tooltip tooltip-left" data-tip="Delete Group">
                     <button
                       onClick={onDeleteGroup}
-                      className="text-gray-400 hover:text-gray-200"
+                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                     >
-                      <TrashIcon className="w-4" />
+                      <TrashIcon className="w-6" />
                     </button>
                   </div>
                 </>

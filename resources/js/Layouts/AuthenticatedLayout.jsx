@@ -10,6 +10,7 @@ import { useEventBus } from "@/EventBus";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
 import { Link, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
+import ToggleTheme from "@/Components/App/ToggleTheme";
 
 export default function Authenticated({ header, children }) {
   const page = usePage();
@@ -111,6 +112,7 @@ export default function Authenticated({ header, children }) {
               </div>
 
               <div className="hidden sm:ms-6 sm:flex sm:items-center">
+                <ToggleTheme />
                 <div className="flex relative ms-3">
                   {user.is_admin && (
                     <PrimaryButton onClick={(ev) => setShowNewUserModal(true)}>

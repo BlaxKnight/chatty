@@ -5,5 +5,3 @@
 - microphone icon ui problem
 - toast not working for creating and deleting group
 - after push edit button for groups, it will convert create group button to edit
-- Profile storage GET 404 error
--

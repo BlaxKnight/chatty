@@ -15,11 +15,22 @@
 
 .conversation-item .avatar.online:before,
 .conversation-item .avatar.offline:before {
-    width: 8px;
-    height: 8px;
+    width: 12px;
+    height: 12px;
     top: 1%;
     right: 1%;
     outline-width: 1px;
+}
+
+.avatar.offline:before {
+  outline: none;
+  border: 3px solid rgb(107 114 128 / var(--tw-bg-opacity, 1));
+  background-color: white;
+}
+
+.avatar.online:before {
+  border: none;
+  outline: none;
 }
 
 .chat-message-content > blockquote,

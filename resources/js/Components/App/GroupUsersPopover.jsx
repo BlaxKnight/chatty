@@ -11,10 +11,10 @@ export default function GroupUsersPopover({ users = [] }) {
         <>
           <Popover.Button
             className={`${
-              open ? "text-gray-200" : "text-gray-400"
-            } hover:text-gray-200`}
+              open ? "text-gray-700 dark:text-gray-200" : "text-gray-500"
+            } hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200`}
           >
-            <UsersIcon className="w-4" />
+            <UsersIcon className="w-6" />
           </Popover.Button>
           <Transition
             as={Fragment}
@@ -27,7 +27,7 @@ export default function GroupUsersPopover({ users = [] }) {
           >
             <Popover.Panel className="absolute right-0 z-20 mt-3 w-[300px] px-4 sm:px-0">
               <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
-                <div className="bg-gray-800 py-2">
+                <div className="dark:bg-gray-800 bg-gray-300 text-gray-700 dark:text-gray-200 py-2">
                   {users.map((user) => (
                     <Link
                       href={route("chat.user", user.id)}
@@ -35,7 +35,7 @@ export default function GroupUsersPopover({ users = [] }) {
                       className="flex items-center gap-2 py-2 px-3 hover:bg-black/30 "
                     >
                       <UserAvatar user={user} />
-                      <div className="text-xs">{user.name}</div>
+                      <div className="text-base">{user.name}</div>
                     </Link>
                   ))}
                 </div>

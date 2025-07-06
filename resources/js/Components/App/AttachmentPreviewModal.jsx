@@ -58,7 +58,7 @@ export default function AttachmentPreviewModal({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/25" />
+          <div className="fixed inset-0 bg-gray-500/65" />
 
           <div className="fixed inset-0 overflow-y-auto">
             <div className="h-screen w-screen">
@@ -71,7 +71,7 @@ export default function AttachmentPreviewModal({
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="flex flex-col w-full h-full transform overflow-hidden bg-slate-800 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="flex flex-col w-full h-full transform overflow-hidden text-left align-middle shadow-xl transition-all">
                   <button
                     onClick={close}
                     className="absolute right-3 top-3 w-10 h-10 rounded-full hover:bg-black/10 transition flex items-center justify-center text-gray-100 z-40"

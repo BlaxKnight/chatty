@@ -12,23 +12,25 @@ const MessageItem = ({ message, attachmentClick }) => {
   return (
     <div
       className={
-        "chat " +
+        "chat pb-6 pt-0 gap-x-5 " +
         (message.sender_id === currentUser.id ? "chat-end" : "chat-start")
       }
     >
       {<UserAvatar user={message.sender} />}
 
-      <div className="chat-header">
+      <div className="chat-header text-base text-gray-500 dark:text-gray-400">
         {message.sender_id !== currentUser.id ? message.sender.name : ""}
-        <time className="text-xs opacity-50 ml-2">
+        <time className="text-xs opacity-85 ml-2">
           {formatMessageDateLong(message.created_at)}
         </time>
       </div>
 
       <div
         className={
-          "chat-bubble relative " +
-          (message.sender_id === currentUser.id ? " chat-bubble-info" : "")
+          "chat-bubble max-w-[500px] relative shadow " +
+          (message.sender_id === currentUser.id
+            ? " chat-bubble-info bg-gray-100 dark:bg-gray-600 dark:text-gray-200"
+            : "bg-gray-50 text-gray-800 dark:bg-gray-300 dark:text-gray-900")
         }
       >
         {message.sender_id == currentUser.id && (

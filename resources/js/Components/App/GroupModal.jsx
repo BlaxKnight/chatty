@@ -46,6 +46,8 @@ export default function GroupModal({show = false, onClose = () => {}}) {
   };
 
   const closeModal = () => {
+    //bug of create & edit group button
+    group.id = null;
     reset();
     onClose();
   };

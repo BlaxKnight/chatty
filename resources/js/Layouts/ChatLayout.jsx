@@ -74,8 +74,7 @@ const ChatLayout = ({ children }) => {
 
       if (
         !selectedConversation ||
-        selectedConversation.is_group &&
-        selectedConversation.id == id
+        (selectedConversation.is_group && selectedConversation.id == id)
       ) {
         router.visit(route("dashboard"));
       }
@@ -152,20 +151,20 @@ const ChatLayout = ({ children }) => {
 
   return (
     <>
-      <div className="flex w-full overflow-hidden">
+      <div className="flex mx-auto lg:min-w-[1024px] xl:min-w-[1280px] overflow-hidden shadow-lg my-6 rounded-2xl border border-gray-200 dark:border-slate-700">
         <div
-          className={`transition-all sm:w-[220px] md:w-[300px] bg-slate-800 flex flex-col ${
+          className={`transition-all p-2 md:w-[240px] lg:w-[320px] xl:w-[400px] bg-gray-100 dark:bg-slate-800 flex flex-col border-r border-gray-300 dark:border-slate-600 ${
             selectedConversation ? "-ml-[100%] sm:ml-0" : ""
           }`}
         >
-          <div className="flex items-center justify-between py-2 px-3 text-xl font-medium text-gray-200">
+          <div className="flex items-center justify-between py-2 px-3 text-2xl font-medium text-gray-700 dark:text-gray-200">
             My Conversations
             <div className="tooltip tooltip-left" data-tip="Create new Group">
               <button
                 onClick={(ev) => setShowGroupModal(true)}
-                className="text-gray-400 hover:text-gray-200"
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               >
-                <PencilSquareIcon className="w-4 n-4 inline-block ml-2" />
+                <PencilSquareIcon className="w-6 n-4 inline-block ml-2" />
               </button>
             </div>
           </div>
@@ -176,7 +175,7 @@ const ChatLayout = ({ children }) => {
               className="w-full"
             />
           </div>
-          <div className="flex-1 overflow-auto">
+          <div className="flex-1 overflow-auto px-3 mr-[-0.5rem]">
             {sortedConversations.map((conversation, index) => {
               const type = conversation?.is_group === true ? "group" : "user";
               const key = `conversation-${type}-${conversation.id}`;
@@ -191,7 +190,9 @@ const ChatLayout = ({ children }) => {
             })}
           </div>
         </div>
-        <div className="flex flex-1 flex-col">{children}</div>
+        <div className="flex flex-1 flex-col border border-gray-200 dark:border-slate-700">
+          {children}
+        </div>
       </div>
       <GroupModal
         show={showGroupModal}

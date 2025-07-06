@@ -39,8 +39,8 @@ const Home = () => {
     }
   };
 
-  const messageDeleted = ({message}) => {
-        if (
+  const messageDeleted = ({ message }) => {
+    if (
       selectedConversation &&
       selectedConversation.is_group &&
       selectedConversation.id == message.group_id
@@ -151,7 +151,7 @@ const Home = () => {
     <>
       {!messages && (
         <div className="flex flex-col gap-8 justify-center items-center text-center h-full opacity-35">
-          <div className="text-2xl md:text-4xl p-16 text-slate-200">
+          <div className="text-2xl md:text-4xl p-16 text-slate-700 dark:text-slate-200">
             Please select conversation to see messages
           </div>
           <ChatBubbleLeftRightIcon className="w-32 h-32 inline-block" />
@@ -160,12 +160,23 @@ const Home = () => {
       {messages && (
         <>
           <ConversationHeader selectedConversation={selectedConversation} />
-          <div ref={messagesCtrRef} className="flex-1 overflow-y-auto p-5 overflow-hidden">
+          <div
+            ref={messagesCtrRef}
+            className="shadow-[inset_0_0px_4px_rgba(0,0,0,0.2)] flex flex-1 justify-center overflow-y-auto p-5 overflow-hidden relative m-auto w-full bg-white dark:bg-gray-900"
+          >
             {}
 
             {localMessages.length === 0 && (
-              <div className="flex justify-center items-center h-full">
-                <div className="text-lg text-slate-200">No messages found</div>
+              <div className="flex flex-col justify-center items-center h-full">
+                <div className="text-6xl text-slate-200 opacity-40 mb-3">
+                  ¯\_(ツ)_/¯
+                </div>
+                <div className="text-lg text-slate-200 opacity-40">
+                  No messages found.
+                </div>
+                <div className="text-lg text-slate-200 opacity-40">
+                  Start the conversation!
+                </div>
               </div>
             )}
             {localMessages.length > 0 && (
