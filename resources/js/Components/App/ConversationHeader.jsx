@@ -58,7 +58,7 @@ const ConversationHeader = ({ selectedConversation }) => {
               <GroupUsersPopover users={selectedConversation.users} />
               {selectedConversation.owner_id == authUser.id && (
                 <>
-                  <div className="tooltip tooltip-left" data-tip="Edit Group">
+                  <div className="tooltip tooltip-left before:text-gray-700 dark:before:text-gray-200 before:bg-white/90 dark:before:bg-black/75" data-tip="Edit Group">
                     <button
                       onClick={(ev) =>
                         emit("GroupModal.show", selectedConversation)
@@ -68,7 +68,7 @@ const ConversationHeader = ({ selectedConversation }) => {
                       <PencilSquareIcon className="w-6" />
                     </button>
                   </div>
-                  <div className="tooltip tooltip-left" data-tip="Delete Group">
+                  <div className="tooltip tooltip-left before:text-gray-700 dark:before:text-gray-200 before:bg-white/90 dark:before:bg-black/75" data-tip="Delete Group">
                     <button
                       onClick={onDeleteGroup}
                       className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"

@@ -50,7 +50,7 @@ export default function UserOptionsDropdown({ conversation }) {
     <div>
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className="flex justify-center items-center w-8 h-8 rounded-full hover:bg-black/40">
+          <Menu.Button className="flex justify-center items-center w-8 h-8 rounded-full hover:bg-black/10 dark:hover:bg-white/10">
             <EllipsisVerticalIcon className="h-5 w-5" />
           </Menu.Button>
         </div>
@@ -63,15 +63,14 @@ export default function UserOptionsDropdown({ conversation }) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-2 w-48 rounded-md bg-gray-800 shadow-lg z-50">
+          <Menu.Items className="absolute right-0 mt-2 w-48 rounded-md bg-white/90 dark:bg-gray-800 p-2 dark:text-gray-200 text-gray-700 shadow-lg z-50">
             <div className="px-1 py-1">
               <Menu.Item>
                 {({ active }) => (
                   <button
                     onClick={onBlockUser}
-                    className={`${
-                      active ? "bg-black/30 text-white" : "text-gray-100"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    className={`${active ? "dark:text-gray-200 text-gray-700 hover:bg-black/5 dark:hover:bg-white/5" : " dark:text-gray-200 text-gray-700"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     {conversation.blocked_at && (
                       <>
@@ -94,9 +93,8 @@ export default function UserOptionsDropdown({ conversation }) {
                 {({ active }) => (
                   <button
                     onClick={changeUserRole}
-                    className={`${
-                      active ? "bg-black/30 text-white" : "text-gray-100"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    className={`${active ? "dark:text-gray-200 text-gray-700 hover:bg-black/5 dark:hover:bg-white/5" : "dark:text-gray-200 text-gray-700"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     {conversation.is_admin && (
                       <>

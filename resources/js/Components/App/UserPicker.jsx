@@ -10,11 +10,11 @@ export default function UserPicker({ value, options, onSelect }) {
     query === ""
       ? options
       : options.filter((person) =>
-          person.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
+        person.name
+          .toLowerCase()
+          .replace(/\s+/g, "")
+          .includes(query.toLowerCase().replace(/\s+/g, ""))
+      );
 
   const onSelected = (persons) => {
     setSelected(persons);
@@ -58,10 +58,9 @@ export default function UserPicker({ value, options, onSelect }) {
                   <Combobox.Option
                     key={person.id}
                     className={({ active }) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                        active
-                          ? "bg-teal-600 text-white"
-                          : "bg-gray-900 text-gray-100"
+                      `relative cursor-default select-none py-2 pl-10 pr-4 ${active
+                        ? "bg-teal-600 text-white"
+                        : "bg-gray-900 text-gray-100"
                       }`
                     }
                     value={person}
@@ -69,9 +68,8 @@ export default function UserPicker({ value, options, onSelect }) {
                     {({ selected, active }) => (
                       <>
                         <span
-                          className={`block truncate ${
-                            selected ? "font-medium" : "font-normal"
-                          }`}
+                          className={`block truncate ${selected ? "font-medium" : "font-normal"
+                            }`}
                         >
                           {person.name}
                         </span>
@@ -94,7 +92,7 @@ export default function UserPicker({ value, options, onSelect }) {
       {selected && (
         <div className="flex flex-wrap gap-2 mt-3">
           {selected.map((person) => (
-            <div key={person.id} className="badge badge-primary gap-2">
+            <div key={person.id} className="badge bg-gray-100 border-gray-200 p-2 text-gray-700 gap-2">
               {person.name}
             </div>
           ))}

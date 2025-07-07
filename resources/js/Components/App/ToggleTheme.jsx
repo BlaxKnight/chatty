@@ -12,7 +12,7 @@ export default function ToggleTheme() {
 
   return (
     <div className="flex items-center">
-      <button onClick={() => darkModeHandler()}>
+      <button type="button" onClick={() => darkModeHandler()}>
         {dark && <SunIcon className="w-6" />}
         {!dark && <MoonIcon className="w-6" />}
       </button>

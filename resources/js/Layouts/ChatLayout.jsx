@@ -153,13 +153,12 @@ const ChatLayout = ({ children }) => {
     <>
       <div className="flex mx-auto lg:min-w-[1024px] xl:min-w-[1280px] overflow-hidden shadow-lg my-6 rounded-2xl border border-gray-200 dark:border-slate-700">
         <div
-          className={`transition-all p-2 md:w-[240px] lg:w-[320px] xl:w-[400px] bg-gray-100 dark:bg-slate-800 flex flex-col border-r border-gray-300 dark:border-slate-600 ${
-            selectedConversation ? "-ml-[100%] sm:ml-0" : ""
-          }`}
+          className={`transition-all p-2 md:w-[240px] lg:w-[320px] xl:w-[400px] bg-gray-100 dark:bg-slate-800 flex flex-col border-r border-gray-300 dark:border-slate-600 ${selectedConversation ? "-ml-[100%] sm:ml-0" : ""
+            }`}
         >
           <div className="flex items-center justify-between py-2 px-3 text-2xl font-medium text-gray-700 dark:text-gray-200">
             My Conversations
-            <div className="tooltip tooltip-left" data-tip="Create new Group">
+            <div className="tooltip tooltip-left before:text-gray-700 dark:before:text-gray-200 before:bg-white/90 dark:before:bg-black/75" data-tip="Create new Group">
               <button
                 onClick={(ev) => setShowGroupModal(true)}
                 className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"

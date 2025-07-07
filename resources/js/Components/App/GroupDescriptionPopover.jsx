@@ -8,9 +8,8 @@ export default function GroupDescriptionPopover({ description }) {
       {({ open }) => (
         <>
           <Popover.Button
-            className={`${
-              open ? "text-gray-700 dark:text-gray-200" : "text-gray-500"
-            } hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200`}
+            className={`${open ? "text-gray-700 dark:text-gray-200" : "text-gray-500"
+              } hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200`}
           >
             <ExclamationCircleIcon className="w-6" />
           </Popover.Button>
@@ -25,9 +24,9 @@ export default function GroupDescriptionPopover({ description }) {
           >
             <Popover.Panel className="absolute right-0 z-[11] mt-3 w-[300px] px-4 sm:px-0">
               <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
-                <div className="bg-gray-300 dark:bg-gray-800 p-4 dark:text-gray-200 text-gray-700">
-                  <h2 className="text-lg mb-3">Description</h2>
-                  {description && <div className="text-xs">{description}</div>}
+                <div className="bg-white/90 dark:bg-gray-800 p-4 dark:text-gray-200 text-gray-700">
+                  <h2 className="text-xl mb-3">Description</h2>
+                  {description && <div className="text-sm">{description}</div>}
                   {!description && (
                     <div className="text-xs text-gray-500 text-center py-4">
                       No description is defined.

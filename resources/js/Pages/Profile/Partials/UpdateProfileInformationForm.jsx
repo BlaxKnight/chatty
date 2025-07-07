@@ -40,15 +40,15 @@ export default function UpdateProfileInformation({
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
-              <UserAvatar user={user} profile={true} />
+                <UserAvatar user={user} profile={true} />
                 <div>
                     <InputLabel htmlFor="avatar" value="Profile Picture" />
 
                     <input
-                      id="avatar"
-                      type="file"
-                      className="file-input file-input-bordered file-input-primary w-full max-w-xs"
-                      onChange={(e) => setData("avatar", e.target.files[0])}
+                        id="avatar"
+                        type="file"
+                        className="file-input file-input-bordered text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-900 w-full max-w-xs"
+                        onChange={(e) => setData("avatar", e.target.files[0])}
                     />
 
                     <p className='mt-1 text-gray-400'>Please upload square picture. Ex: 512px&times;512px</p>
