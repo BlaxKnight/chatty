@@ -28,7 +28,7 @@ export default function Toast({}) {
           className="alert alert-success py-3 px-4 text-gray-100 rounded-md "
         >
           <span>New message arrived!</span>
-        </div>
+        </div>;
       })}
     </div>
   );

@@ -10,8 +10,9 @@ export default function GroupUsersPopover({ users = [] }) {
       {({ open }) => (
         <>
           <Popover.Button
-            className={`${open ? "text-gray-700 dark:text-gray-200" : "text-gray-500"
-              } hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200`}
+            className={`${
+              open ? "text-gray-700 dark:text-gray-200" : "text-gray-500"
+            } hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200`}
           >
             <UsersIcon className="w-6" />
           </Popover.Button>

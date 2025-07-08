@@ -31,7 +31,9 @@ export default function Login({ status, errorMessage, canResetPassword }) {
         <div className="mb-4 text-sm font-medium text-green-600">{status}</div>
       )}
       {errorMessage && (
-        <div className="mb-4 text-sm font-medium text-red-600">{errorMessage}</div>
+        <div className="mb-4 text-sm font-medium text-red-600">
+          {errorMessage}
+        </div>
       )}
 
       <form onSubmit={submit}>
@@ -93,9 +95,7 @@ export default function Login({ status, errorMessage, canResetPassword }) {
             )}
 
             <SecondaryButton className="ms-4" disabled={processing}>
-              <Link href={route("register")}>
-                Register
-              </Link>
+              <Link href={route("register")}>Register</Link>
             </SecondaryButton>
 
             <PrimaryButton className="ms-4" disabled={processing}>

@@ -16,9 +16,7 @@ const MessageAttachments = ({ attachments, attachmentClick }) => {
               key={attachment.id}
               className={
                 `group flex flex-col items-center justify-center text-gray-500 relative cursor-pointer ` +
-                (isAudio(attachments)
-                  ? "w-84"
-                  : "p-4")
+                (isAudio(attachments) ? "w-84" : "p-4")
               }
             >
               {!isAudio(attachment) && (

@@ -14,25 +14,25 @@ use Illuminate\Queue\SerializesModels;
 
 class GroupDeleted implements ShouldBroadcastNow
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+  use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Create a new event instance.
-     */
-    public function __construct(public int $id, public string $name)
-    {
-        //
-    }
+  /**
+   * Create a new event instance.
+   */
+  public function __construct(public int $id, public string $name)
+  {
+    //
+  }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
-     */
-    public function broadcastOn(): array
-    {
-        return [
-            new PrivateChannel('group.deleted.' . $this->id),
-        ];
-    }
+  /**
+   * Get the channels the event should broadcast on.
+   *
+   * @return array<int, \Illuminate\Broadcasting\Channel>
+   */
+  public function broadcastOn(): array
+  {
+    return [
+      new PrivateChannel('group.deleted.' . $this->id),
+    ];
+  }
 }

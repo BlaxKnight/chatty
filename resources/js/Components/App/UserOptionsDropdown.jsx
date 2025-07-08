@@ -69,8 +69,11 @@ export default function UserOptionsDropdown({ conversation }) {
                 {({ active }) => (
                   <button
                     onClick={onBlockUser}
-                    className={`${active ? "dark:text-gray-200 text-gray-700 hover:bg-black/5 dark:hover:bg-white/5" : " dark:text-gray-200 text-gray-700"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    className={`${
+                      active
+                        ? "dark:text-gray-200 text-gray-700 hover:bg-black/5 dark:hover:bg-white/5"
+                        : " dark:text-gray-200 text-gray-700"
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     {conversation.blocked_at && (
                       <>
@@ -93,8 +96,11 @@ export default function UserOptionsDropdown({ conversation }) {
                 {({ active }) => (
                   <button
                     onClick={changeUserRole}
-                    className={`${active ? "dark:text-gray-200 text-gray-700 hover:bg-black/5 dark:hover:bg-white/5" : "dark:text-gray-200 text-gray-700"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    className={`${
+                      active
+                        ? "dark:text-gray-200 text-gray-700 hover:bg-black/5 dark:hover:bg-white/5"
+                        : "dark:text-gray-200 text-gray-700"
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     {conversation.is_admin && (
                       <>
